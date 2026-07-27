@@ -52,6 +52,11 @@
       </div>
     </nav>
 
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <div class="alert alert-info">{{ message }}</div>
+    {% endfor %} {% endif %} {% endwith %}
+
     <!-- Main Content -->
     <main class="container py-5">{% block content %} {% endblock %}</main>
 
