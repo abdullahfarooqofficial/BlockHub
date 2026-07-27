@@ -40,7 +40,6 @@ def dashboard():
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
-    # Clear previous session
     session.clear()
 
     if request.method == "POST":
@@ -61,14 +60,17 @@ def login():
 
         conn.close()
 
-        if user is None or not check_password_hash(user["password_hash"], password):
-            flash("Invalid username or password.")
+        if user is None:
+            flash("Invalid username.")
             return redirect("/login")
 
-        # Remember user
+        if not check_password_hash(user["password_hash"], password):
+            flash("Invalid password.")
+            return redirect("/login")
+
         session["user_id"] = user["id"]
 
-        flash("Login successful!")
+        flash("Welcome back!")
         return redirect("/dashboard")
 
     return render_template("login.html")
@@ -140,6 +142,14 @@ def register():
 
     return render_template("register.html")
 
+#logout
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    flash("You have been logged out.")
+    return redirect("/")
 
 # Test Route
 @app.route("/test")
