@@ -1,16 +1,20 @@
-from flask import Flask, render_template, request, redirect, flash
-from werkzeug.security import generate_password_hash
+from flask import Flask, render_template, request, redirect, flash, session
 from flask_session import Session
+from werkzeug.security import generate_password_hash, check_password_hash
+from helpers import login_required
 import sqlite3
 
 app = Flask(__name__)
 
-# Session Configuration
+# Secret key for sessions and flash messages
+app.secret_key = "blockhub_secret_key"
+
+# Session configuration
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Database Connection
+# Database
 DATABASE = "database/blockhub.db"
 
 
@@ -20,19 +24,57 @@ def get_db_connection():
     return conn
 
 
-# Home Page
+# Home
 @app.route("/")
 def index():
     return render_template("index.html")
 
+#Dashboard
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
 
 
-    
-@app.route("/login")
+# Login
+@app.route("/login", methods=["GET", "POST"])
 def login():
+
+    # Clear previous session
+    session.clear()
+
+    if request.method == "POST":
+
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if not username or not password:
+            flash("Please fill in all fields.")
+            return redirect("/login")
+
+        conn = get_db_connection()
+
+        user = conn.execute(
+            "SELECT * FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+
+        conn.close()
+
+        if user is None or not check_password_hash(user["password_hash"], password):
+            flash("Invalid username or password.")
+            return redirect("/login")
+
+        # Remember user
+        session["user_id"] = user["id"]
+
+        flash("Login successful!")
+        return redirect("/dashboard")
+
     return render_template("login.html")
 
 
+# Register
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -43,16 +85,41 @@ def register():
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
 
+        # Validate input
         if not username or not email or not password or not confirmation:
             flash("Please fill in all fields.")
             return redirect("/register")
 
+        # Check password confirmation
         if password != confirmation:
             flash("Passwords do not match.")
             return redirect("/register")
 
         conn = get_db_connection()
 
+        # Check if username already exists
+        existing_user = conn.execute(
+            "SELECT * FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+
+        if existing_user:
+            conn.close()
+            flash("Username already exists.")
+            return redirect("/register")
+
+        # Check if email already exists
+        existing_email = conn.execute(
+            "SELECT * FROM users WHERE email = ?",
+            (email,)
+        ).fetchone()
+
+        if existing_email:
+            conn.close()
+            flash("Email already exists.")
+            return redirect("/register")
+
+        # Insert new user
         conn.execute(
             """
             INSERT INTO users (username, email, password_hash)
@@ -68,14 +135,17 @@ def register():
         conn.commit()
         conn.close()
 
-        flash("Registration successful!")
+        flash("Registration successful! Please login.")
         return redirect("/login")
 
     return render_template("register.html")
 
+
+# Test Route
 @app.route("/test")
 def test():
     return "It works!"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
