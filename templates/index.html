@@ -1,0 +1,33 @@
+{% extends "layout.html" %} {% block title %} Home | BlockHub {% endblock %} {%
+block content %}
+
+<div class="text-center">
+  <h1 class="display-4">Welcome to BlockHub</h1>
+
+  <p class="lead">Explore blockchain wallets quickly and easily.</p>
+
+  <a href="/login" class="btn btn-primary btn-lg me-2"> Login </a>
+
+  <a href="/register" class="btn btn-outline-primary btn-lg"> Register </a>
+</div>
+
+<hr class="my-5" />
+
+<div class="row text-center">
+  <div class="col-md-4">
+    <h3>🔍 Search Wallets</h3>
+    <p>Search any public blockchain wallet address.</p>
+  </div>
+
+  <div class="col-md-4">
+    <h3>⭐ Save Favourites</h3>
+    <p>Keep track of your favourite wallet addresses.</p>
+  </div>
+
+  <div class="col-md-4">
+    <h3>📊 View Transactions</h3>
+    <p>Explore wallet balances and transaction history.</p>
+  </div>
+</div>
+
+{% endblock %}
