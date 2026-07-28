@@ -5,14 +5,21 @@ content %}
 
 <hr />
 
-<p><strong>Wallet Address:</strong> {{ wallet.address }}</p>
+<p><strong>Wallet Address:</strong> {{ address }}</p>
 
-<p><strong>Network:</strong> {{ wallet.network }}</p>
+<p><strong>Network:</strong> {{ network }}</p>
 
-<p><strong>Balance:</strong> {{ wallet.balance }}</p>
+<p><strong>Balance:</strong> Coming Soon</p>
 
 <p class="text-muted">
   Wallet data will be displayed here after API integration.
 </p>
+
+<form action="/add_favourite" method="POST">
+  <input type="hidden" name="address" value="{{ address }}" />
+  <input type="hidden" name="network" value="{{ network }}" />
+
+  <button class="btn btn-warning">Add to Favourites</button>
+</form>
 
 {% endblock %}

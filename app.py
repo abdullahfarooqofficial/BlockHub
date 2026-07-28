@@ -183,6 +183,49 @@ def logout():
     return redirect("/")
 
 
+# Profile
+@app.route("/profile")
+@login_required
+def profile():
+
+    conn = get_db_connection()
+
+    user = conn.execute(
+        """
+        SELECT *
+        FROM users
+        WHERE id = ?
+        """,
+        (session["user_id"],)
+    ).fetchone()
+
+    total_searches = conn.execute(
+        """
+        SELECT COUNT(*)
+        FROM search_history
+        WHERE user_id = ?
+        """,
+        (session["user_id"],)
+    ).fetchone()[0]
+
+    total_favourites = conn.execute(
+        """
+        SELECT COUNT(*)
+        FROM favourites
+        WHERE user_id = ?
+        """,
+        (session["user_id"],)
+    ).fetchone()[0]
+
+    conn.close()
+
+    return render_template(
+        "profile.html",
+        user=user,
+        total_searches=total_searches,
+        total_favourites=total_favourites
+    )
+
 # Wallet
 @app.route("/wallet")
 @login_required
@@ -213,8 +256,55 @@ def wallet():
         address=address,
         network=network
     )
-    
-    
+   
+#add favourite 
+@app.route("/add_favourite", methods=["POST"])
+@login_required
+def add_favourite():
+
+    address = request.form.get("address")
+    network = request.form.get("network")
+
+    conn = get_db_connection()
+
+    existing = conn.execute(
+    """
+    SELECT *
+    FROM favourites
+    WHERE user_id = ?
+    AND wallet_address = ?
+    AND network = ?
+    """,
+    (
+        session["user_id"],
+        address,
+        network
+    )
+    ).fetchone()
+
+    if existing:
+        conn.close()
+        flash("Wallet is already in your favourites.")
+        return redirect(f"/wallet?address={address}&network={network}")
+
+    conn.execute(
+        """
+        INSERT INTO favourites (user_id, wallet_address, network)
+        VALUES (?, ?, ?)
+        """,
+        (
+            session["user_id"],
+            address,
+            network
+        )
+    )
+
+    conn.commit()
+    conn.close()
+
+    flash("Wallet added to favourites.")
+
+    return redirect(f"/wallet?address={address}&network={network}")
 
 # Test Route
 @app.route("/test")
