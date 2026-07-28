@@ -234,11 +234,14 @@ def wallet():
     address = request.args.get("address")
     network = request.args.get("network")
 
+
     conn = get_db_connection()
 
     conn.execute(
         """
-        INSERT INTO search_history (user_id, wallet_address, network)
+        INSERT INTO search_history
+        (user_id, wallet_address, network)
+
         VALUES (?, ?, ?)
         """,
         (
@@ -251,10 +254,20 @@ def wallet():
     conn.commit()
     conn.close()
 
+
+    wallet_data = {
+
+        "balance": "Loading...",
+        "transactions": []
+
+    }
+
+
     return render_template(
         "wallet.html",
         address=address,
-        network=network
+        network=network,
+        wallet_data=wallet_data
     )
    
 #add favourite 
@@ -305,6 +318,33 @@ def add_favourite():
     flash("Wallet added to favourites.")
 
     return redirect(f"/wallet?address={address}&network={network}")
+
+#remove favourite
+@app.route("/remove_favourite/<int:id>", methods=["POST"])
+@login_required
+def remove_favourite(id):
+
+    conn = get_db_connection()
+
+    conn.execute(
+        """
+        DELETE FROM favourites
+        WHERE id = ?
+        AND user_id = ?
+        """,
+        (
+            id,
+            session["user_id"]
+        )
+    )
+
+    conn.commit()
+    conn.close()
+
+    flash("Wallet removed from favourites.")
+
+    return redirect("/dashboard")
+
 
 # Test Route
 @app.route("/test")

@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block title %} Wallet {% endblock %} {% block
 content %}
 
-<h2>Wallet Details</h2>
+<h2>Wallet Explorer</h2>
 
 <hr />
 
@@ -9,17 +9,43 @@ content %}
 
 <p><strong>Network:</strong> {{ network }}</p>
 
-<p><strong>Balance:</strong> Coming Soon</p>
-
-<p class="text-muted">
-  Wallet data will be displayed here after API integration.
+<p>
+  <strong>Balance:</strong>
+  {{ wallet_data.balance }}
 </p>
+
+<hr />
+
+<h4>Transactions</h4>
+
+{% if wallet_data.transactions %}
+
+<ul class="list-group mb-3">
+  {% for tx in wallet_data.transactions %}
+
+  <li class="list-group-item">
+    <strong>From:</strong> {{ tx.from }}<br />
+
+    <strong>To:</strong> {{ tx.to }}<br />
+
+    <strong>Amount:</strong> {{ tx.value }}
+  </li>
+
+  {% endfor %}
+</ul>
+
+{% else %}
+
+<p class="text-muted">No transactions available yet.</p>
+
+{% endif %}
 
 <form action="/add_favourite" method="POST">
   <input type="hidden" name="address" value="{{ address }}" />
+
   <input type="hidden" name="network" value="{{ network }}" />
 
-  <button class="btn btn-warning">Add to Favourites</button>
+  <button class="btn btn-warning">⭐ Add to Favourites</button>
 </form>
 
 {% endblock %}
