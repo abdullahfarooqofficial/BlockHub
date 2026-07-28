@@ -33,7 +33,38 @@ def index():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+
+    conn = get_db_connection()
+
+    favourites = conn.execute(
+        """
+        SELECT *
+        FROM favourites
+        WHERE user_id = ?
+        ORDER BY added_at DESC
+        LIMIT 5
+        """,
+        (session["user_id"],)
+    ).fetchall()
+
+    history = conn.execute(
+        """
+        SELECT *
+        FROM search_history
+        WHERE user_id = ?
+        ORDER BY searched_at DESC
+        LIMIT 5
+        """,
+        (session["user_id"],)
+    ).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "dashboard.html",
+        favourites=favourites,
+        history=history
+    )
 
 
 # Login
@@ -160,11 +191,27 @@ def wallet():
     address = request.args.get("address")
     network = request.args.get("network")
 
-    wallet = get_wallet_data(address, network)
+    conn = get_db_connection()
+
+    conn.execute(
+        """
+        INSERT INTO search_history (user_id, wallet_address, network)
+        VALUES (?, ?, ?)
+        """,
+        (
+            session["user_id"],
+            address,
+            network
+        )
+    )
+
+    conn.commit()
+    conn.close()
 
     return render_template(
         "wallet.html",
-        wallet=wallet
+        address=address,
+        network=network
     )
     
     
