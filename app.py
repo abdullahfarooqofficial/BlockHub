@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, session
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
-from helpers import login_required
+from helpers import login_required, get_wallet_data
 import sqlite3
 
 app = Flask(__name__)
@@ -160,13 +160,15 @@ def wallet():
     address = request.args.get("address")
     network = request.args.get("network")
 
+    wallet = get_wallet_data(address, network)
+
     return render_template(
         "wallet.html",
-        address=address,
-        network=network
+        wallet=wallet
     )
     
     
+
 # Test Route
 @app.route("/test")
 def test():

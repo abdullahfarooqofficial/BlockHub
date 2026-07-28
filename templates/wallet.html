@@ -5,9 +5,11 @@ content %}
 
 <hr />
 
-<p><strong>Wallet Address:</strong> {{ address }}</p>
+<p><strong>Wallet Address:</strong> {{ wallet.address }}</p>
 
-<p><strong>Network:</strong> {{ network }}</p>
+<p><strong>Network:</strong> {{ wallet.network }}</p>
+
+<p><strong>Balance:</strong> {{ wallet.balance }}</p>
 
 <p class="text-muted">
   Wallet data will be displayed here after API integration.
