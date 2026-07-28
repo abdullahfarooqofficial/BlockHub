@@ -151,6 +151,22 @@ def logout():
     flash("You have been logged out.")
     return redirect("/")
 
+
+# Wallet
+@app.route("/wallet")
+@login_required
+def wallet():
+
+    address = request.args.get("address")
+    network = request.args.get("network")
+
+    return render_template(
+        "wallet.html",
+        address=address,
+        network=network
+    )
+    
+    
 # Test Route
 @app.route("/test")
 def test():
