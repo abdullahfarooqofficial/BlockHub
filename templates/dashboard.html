@@ -1,8 +1,35 @@
-{% extends "layout.html" %} {% block title %} Dashboard {% endblock %} {% block
+{% extends "layout.html" %} {% block title %}Dashboard{% endblock %} {% block
 content %}
 
-<h1>Dashboard</h1>
+<div class="container">
+  <h2 class="mb-4">Dashboard</h2>
 
-<p>Welcome to BlockHub!</p>
+  <div class="card p-4">
+    <h4 class="mb-3">Search Wallet</h4>
+
+    <form action="/wallet" method="GET">
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="text"
+          name="address"
+          placeholder="Enter wallet address"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <select class="form-select" name="network" required>
+          <option value="">Select Network</option>
+          <option value="ethereum">Ethereum</option>
+          <option value="bsc">BNB Smart Chain</option>
+          <option value="polygon">Polygon</option>
+        </select>
+      </div>
+
+      <button class="btn btn-dark">Search Wallet</button>
+    </form>
+  </div>
+</div>
 
 {% endblock %}
