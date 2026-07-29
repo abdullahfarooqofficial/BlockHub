@@ -33,14 +33,15 @@ def get_wallet_data(address, network):
 
         "ethereum": "eth-mainnet",
         "bsc": "bsc-mainnet",
-        "polygon": "matic-mainnet"
-
+        "polygon": "matic-mainnet",
+        "base": "base-mainnet"
     }
     network_symbol = {
 
         "ethereum": "ETH",
         "bsc": "BNB",
-        "polygon": "POL"
+        "polygon": "POL",
+        "base": "ETH"
 
     }
 
