@@ -47,7 +47,11 @@ content %}
       {% for tx in wallet_data.transactions %}
 
       <tr>
-        <td>{{ tx["hash"][:12] }}...</td>
+        <td>
+          <a href="/tx/{{ tx.hash }}?network={{ network }}&from={{ tx.from }}&to={{ tx.to }}&value={{ tx.value }}&time={{ tx.time }}&status={{ tx.status }}&block={{ tx.block }}&gas_used={{tx.gas_used }}&gas_price={{ tx.gas_price }}">
+          {{ tx.hash[:10] if tx.hash else "N/A" }}...
+          </a>
+        </td>
 
         <td>{{ tx["from"][:12] if tx["from"] else "Contract Creation" }}...</td>
 

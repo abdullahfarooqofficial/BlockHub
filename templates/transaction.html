@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block title %}Transaction{% endblock %} {% block
+content %}
+
+<h2>Transaction Details</h2>
+
+<hr />
+
+<table class="table table-bordered">
+  <tr>
+    <th>Hash</th>
+    <td>{{ tx_data.hash }}</td>
+  </tr>
+
+  <tr>
+    <th>Network</th>
+    <td>{{ network }}</td>
+  </tr>
+
+  <tr>
+    <th>Status</th>
+    <td>{% if tx_data.status %} Success ✅ {% else %} Failed ❌ {% endif %}</td>
+  </tr>
+
+  <tr>
+    <th>Block</th>
+    <td>{{ tx_data.block }}</td>
+  </tr>
+
+  <tr>
+    <th>From</th>
+    <td>{{ tx_data.from }}</td>
+  </tr>
+
+  <tr>
+    <th>To</th>
+    <td>{{ tx_data.to }}</td>
+  </tr>
+
+  <tr>
+    <th>Gas Used</th>
+    <td>{{ tx_data.gas_used }}</td>
+  </tr>
+
+  <tr>
+    <th>Gas Price</th>
+    <td>{{ tx_data.gas_price }}</td>
+  </tr>
+
+  <tr>
+    <th>Timestamp</th>
+    <td>{{ tx_data.time }}</td>
+  </tr>
+</table>
+
+{% endblock %}

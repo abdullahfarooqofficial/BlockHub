@@ -261,6 +261,7 @@ def wallet():
 
     wallet_data = get_wallet_data(address, network)
 
+    session["transactions"] = wallet_data["transactions"]
 
     return render_template(
         "wallet.html",
@@ -344,7 +345,58 @@ def remove_favourite(id):
 
     return redirect("/dashboard")
 
+# Transaction Details
+@app.route("/tx/<tx_hash>", methods=["POST", "GET"])
+@login_required
+def transaction(tx_hash):
 
+    
+
+    tx_data = {
+        "hash": tx_hash,
+        "from": request.args.get("from"),
+        "to": request.args.get("to"),
+        "value": request.args.get("value"),
+        "time": request.args.get("time"),
+        "status": request.args.get("status"),
+        "block": request.args.get("block"),
+        "gas_used": request.args.get("gas_used"),
+        "gas_price": request.args.get("gas_price")
+    }
+    
+    network = request.args.get("network")
+
+    return render_template(
+        "transaction.html",
+        tx_data=tx_data,
+        network=network
+    )
+
+
+
+
+# Transaction Details
+# @app.route("/tx/<tx_hash>")
+# @login_required
+# def transaction(tx_hash):
+
+#     network = request.args.get("network")
+
+#     tx_data = None
+
+#     transactions = session.get("transactions", [])
+
+#     for tx in transactions:
+#         if tx["hash"] == tx_hash:
+#             tx_data = tx
+#             break
+
+
+#     return render_template(
+#         "transaction.html",
+#         tx_data=tx_data,
+#         network=network
+#     )
 
 # Test Route
 @app.route("/test")
