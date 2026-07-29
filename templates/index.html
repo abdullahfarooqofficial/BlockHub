@@ -1,33 +1,135 @@
-{% extends "layout.html" %} {% block title %} Home | BlockHub {% endblock %} {%
+{% extends "layout.html" %} {% block title %} BlockHub | Home {% endblock %} {%
 block content %}
 
-<div class="text-center">
-  <h1 class="display-4">Welcome to BlockHub</h1>
+<!-- Hero Section -->
+<section class="text-center py-5">
+  <h1 class="display-3 fw-bold mb-3">🚀 BlockHub</h1>
 
-  <p class="lead">Explore blockchain wallets quickly and easily.</p>
+  <p class="lead text-muted mb-4">
+    Explore blockchain wallets and transaction history across multiple networks.
+  </p>
 
-  <a href="/login" class="btn btn-primary btn-lg me-2"> Login </a>
+  <!-- Wallet Search -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form action="/wallet" method="GET">
+        <div class="row g-3">
+          <div class="col-md-8">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              name="address"
+              placeholder="Enter wallet address..."
+              required
+            />
+          </div>
 
-  <a href="/register" class="btn btn-outline-primary btn-lg"> Register </a>
-</div>
+          <div class="col-md-4">
+            <select class="form-select form-select-lg" name="network" required>
+              <option value="ethereum">Ethereum</option>
+              <option value="bsc">BNB Smart Chain</option>
+              <option value="polygon">Polygon</option>
+              <option value="base">Base</option>
+            </select>
+          </div>
+        </div>
 
-<hr class="my-5" />
-
-<div class="row text-center">
-  <div class="col-md-4">
-    <h3>🔍 Search Wallets</h3>
-    <p>Search any public blockchain wallet address.</p>
+        <div class="mt-4">
+          <button class="btn btn-primary btn-lg px-5" type="submit">
+            🔍 Explore Wallet
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+</section>
 
-  <div class="col-md-4">
-    <h3>⭐ Save Favourites</h3>
-    <p>Keep track of your favourite wallet addresses.</p>
-  </div>
+<!-- Features -->
+<section class="py-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h1>💰</h1>
 
-  <div class="col-md-4">
-    <h3>📊 View Transactions</h3>
-    <p>Explore wallet balances and transaction history.</p>
+          <h4 class="mt-3">Wallet Explorer</h4>
+
+          <p class="text-muted">
+            View wallet balances and account information across supported
+            blockchains.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h1>📜</h1>
+
+          <h4 class="mt-3">Transaction Explorer</h4>
+
+          <p class="text-muted">
+            Browse recent transactions and inspect detailed blockchain activity.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h1>⭐</h1>
+
+          <h4 class="mt-3">Favourites</h4>
+
+          <p class="text-muted">
+            Save frequently used wallet addresses for quick access from your
+            dashboard.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- How It Works -->
+<section class="py-5 text-center">
+  <h2 class="fw-bold mb-5">How It Works</h2>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="p-3">
+        <div class="display-5 mb-3">①</div>
+
+        <h5>Enter Wallet Address</h5>
+
+        <p class="text-muted">Paste any public blockchain wallet address.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="p-3">
+        <div class="display-5 mb-3">②</div>
+
+        <h5>Select Network</h5>
+
+        <p class="text-muted">Choose the blockchain where the wallet exists.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="p-3">
+        <div class="display-5 mb-3">③</div>
+
+        <h5>Explore Results</h5>
+
+        <p class="text-muted">
+          View balances, transactions and wallet activity instantly.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
