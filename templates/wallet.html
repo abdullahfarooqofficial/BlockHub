@@ -5,38 +5,79 @@ content %}
 
 <hr />
 
-<p><strong>Wallet Address:</strong> {{ address }}</p>
+<p>
+  <strong>Wallet Address:</strong>
+  {{ address }}
+</p>
 
-<p><strong>Network:</strong> {{ network }}</p>
+<p>
+  <strong>Network:</strong>
+  {{ network }}
+</p>
 
 <p>
   <strong>Balance:</strong>
-  {{ wallet_data.balance }}
+  {{ wallet_data.balance if wallet_data.balance else "N/A" }}
 </p>
+
+{% if wallet_data.error %}
+<div class="alert alert-danger mt-3">{{ wallet_data.error }}</div>
+{% endif %}
 
 <hr />
 
-<h4>Transactions</h4>
+<h4>Recent Transactions</h4>
 
 {% if wallet_data.transactions %}
 
-<ul class="list-group mb-3">
-  {% for tx in wallet_data.transactions %}
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Hash</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Time</th>
+      </tr>
+    </thead>
 
-  <li class="list-group-item">
-    <strong>From:</strong> {{ tx.from }}<br />
+    <tbody>
+      {% for tx in wallet_data.transactions %}
 
-    <strong>To:</strong> {{ tx.to }}<br />
+      <tr>
+        <td>{{ tx["hash"][:12] }}...</td>
 
-    <strong>Amount:</strong> {{ tx.value }}
-  </li>
+        <td>{{ tx["from"][:12] if tx["from"] else "Contract Creation" }}...</td>
 
-  {% endfor %}
-</ul>
+        <td>{{ tx["to"][:12] if tx["to"] else "Contract Creation" }}...</td>
+
+        <td>{{ tx["value"] }}</td>
+
+        <td>
+          {% if tx["status"] %}
+
+          <span class="text-success"> Success ✅ </span>
+
+          {% else %}
+
+          <span class="text-danger"> Failed ❌ </span>
+
+          {% endif %}
+        </td>
+
+        <td>{{ tx["time"] }}</td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% else %}
 
-<p class="text-muted">No transactions available yet.</p>
+<p class="text-muted">No transactions available.</p>
 
 {% endif %}
 

@@ -2,7 +2,13 @@ from flask import Flask, render_template, request, redirect, flash, session
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import login_required, get_wallet_data
+from dotenv import load_dotenv
 import sqlite3
+import os
+
+load_dotenv()
+
+COVALENT_API_KEY = os.getenv("COVALENT_API_KEY")
 
 app = Flask(__name__)
 
@@ -234,14 +240,12 @@ def wallet():
     address = request.args.get("address")
     network = request.args.get("network")
 
-
     conn = get_db_connection()
 
     conn.execute(
         """
         INSERT INTO search_history
         (user_id, wallet_address, network)
-
         VALUES (?, ?, ?)
         """,
         (
@@ -255,12 +259,7 @@ def wallet():
     conn.close()
 
 
-    wallet_data = {
-
-        "balance": "Loading...",
-        "transactions": []
-
-    }
+    wallet_data = get_wallet_data(address, network)
 
 
     return render_template(
@@ -344,6 +343,7 @@ def remove_favourite(id):
     flash("Wallet removed from favourites.")
 
     return redirect("/dashboard")
+
 
 
 # Test Route
