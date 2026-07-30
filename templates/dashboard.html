@@ -8,12 +8,7 @@ content %}
 
   <form action="/wallet" method="GET">
     <div class="mb-3">
-      <input
-        class="form-control"
-        name="address"
-        placeholder="Enter wallet address"
-        required
-      />
+      <input class="form-control" name="address" placeholder="0x..." required />
     </div>
 
     <div class="mb-3">
@@ -31,27 +26,24 @@ content %}
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 mb-4 mb-md-0">
     <div class="card p-3">
       <h4>Favourite Wallets</h4>
 
       {% if favourites %}
 
-      <div class="list-group">
+      <div>
         {% for wallet in favourites %}
 
-        <div class="card mb-2 p-3">
-          <strong>{{ wallet.wallet_address }}</strong>
+        <div class="wallet-row" data-network="{{ wallet.network }}">
+          <div class="wallet-meta">
+            <span class="chain-chip {{ wallet.network }}"
+              >{{ wallet.network }}</span
+            >
+            <span class="wallet-address">{{ wallet.wallet_address }}</span>
+          </div>
 
-          <br />
-
-          <small>{{ wallet.network }}</small>
-
-          <form
-            action="/remove_favourite/{{ wallet.id }}"
-            method="POST"
-            class="mt-2"
-          >
+          <form action="/remove_favourite/{{ wallet.id }}" method="POST">
             <button class="btn btn-danger btn-sm">Remove</button>
           </form>
         </div>
@@ -61,7 +53,7 @@ content %}
 
       {% else %}
 
-      <p class="text-muted">No favourite wallets yet.</p>
+      <p class="empty-state">No favourite wallets yet.</p>
 
       {% endif %}
     </div>
@@ -73,23 +65,24 @@ content %}
 
       {% if history %}
 
-      <ul class="list-group">
+      <div>
         {% for search in history %}
 
-        <li class="list-group-item">
-          {{ search.wallet_address }}
-
-          <br />
-
-          <small>{{ search.network }}</small>
-        </li>
+        <div class="wallet-row" data-network="{{ search.network }}">
+          <div class="wallet-meta">
+            <span class="chain-chip {{ search.network }}"
+              >{{ search.network }}</span
+            >
+            <span class="wallet-address">{{ search.wallet_address }}</span>
+          </div>
+        </div>
 
         {% endfor %}
-      </ul>
+      </div>
 
       {% else %}
 
-      <p class="text-muted">No recent searches.</p>
+      <p class="empty-state">No recent searches.</p>
 
       {% endif %}
     </div>

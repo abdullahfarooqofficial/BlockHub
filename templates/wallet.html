@@ -1,98 +1,100 @@
 {% extends "layout.html" %} {% block title %} Wallet {% endblock %} {% block
 content %}
 
-<h2>Wallet Explorer</h2>
+<h2 class="mb-4">Wallet Explorer</h2>
 
-<hr />
+<div class="card p-4 mb-4">
+  <div class="row">
+    <div class="col-md-8 mb-3 mb-md-0">
+      <div class="detail-label">Wallet Address</div>
+      <div class="detail-value">{{ address }}</div>
+    </div>
 
-<p>
-  <strong>Wallet Address:</strong>
-  {{ address }}
-</p>
+    <div class="col-md-2 mb-3 mb-md-0">
+      <div class="detail-label">Network</div>
+      <span class="chain-chip">{{ network }}</span>
+    </div>
 
-<p>
-  <strong>Network:</strong>
-  {{ network }}
-</p>
+    <div class="col-md-2">
+      <div class="detail-label">Balance</div>
+      <div class="detail-value">
+        {{ wallet_data.balance if wallet_data.balance else "N/A" }}
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Balance:</strong>
-  {{ wallet_data.balance if wallet_data.balance else "N/A" }}
-</p>
+  {% if wallet_data.error %}
+  <div class="alert alert-danger mt-3">{{ wallet_data.error }}</div>
+  {% endif %}
 
-{% if wallet_data.error %}
-<div class="alert alert-danger mt-3">{{ wallet_data.error }}</div>
-{% endif %}
-
-<hr />
-
-<h4>Recent Transactions</h4>
-
-{% if wallet_data.transactions %}
-
-<div class="table-responsive">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Hash</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {% for tx in wallet_data.transactions %}
-
-      <tr>
-        <td>
-          <a href="/tx/{{ tx.hash }}?network={{ network }}&from={{ tx.from }}&to={{ tx.to }}&value={{ tx.value }}&time={{ tx.time }}&status={{ tx.status }}&block={{ tx.block }}&gas_used={{tx.gas_used }}&gas_price={{ tx.gas_price }}">
-          {{ tx.hash[:10] if tx.hash else "N/A" }}...
-          </a>
-        </td>
-
-        <td>{{ tx["from"][:12] if tx["from"] else "Contract Creation" }}...</td>
-
-        <td>{{ tx["to"][:12] if tx["to"] else "Contract Creation" }}...</td>
-
-        <td>{{ tx["value"] }}</td>
-
-        <td>
-          {% if tx["status"] %}
-
-          <span class="text-success"> Success ✅ </span>
-
-          {% else %}
-
-          <span class="text-danger"> Failed ❌ </span>
-
-          {% endif %}
-        </td>
-
-        <td>{{ tx["time"] }}</td>
-      </tr>
-
-      {% endfor %}
-    </tbody>
-  </table>
+  <form action="/add_favourite" method="POST" class="mt-4">
+    <input type="hidden" name="address" value="{{ address }}" />
+    <input type="hidden" name="network" value="{{ network }}" />
+    <button class="btn btn-dark">★ Add to Favourites</button>
+  </form>
 </div>
 
-{% else %}
+<div class="card p-4">
+  <h4>Recent Transactions</h4>
 
-<p class="text-muted">No transactions available.</p>
+  {% if wallet_data.transactions %}
 
-{% endif %}
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Hash</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Time</th>
+        </tr>
+      </thead>
 
-<hr />
+      <tbody>
+        {% for tx in wallet_data.transactions %}
 
-<form action="/add_favourite" method="POST">
-  <input type="hidden" name="address" value="{{ address }}" />
+        <tr>
+          <td>
+            <a
+              href="/tx/{{ tx.hash }}?network={{ network }}&from={{ tx.from }}&to={{ tx.to }}&value={{ tx.value }}&time={{ tx.time }}&status={{ tx.status }}&block={{ tx.block }}&gas_used={{tx.gas_used }}&gas_price={{ tx.gas_price }}"
+            >
+              {{ tx.hash[:10] if tx.hash else "N/A" }}...
+            </a>
+          </td>
 
-  <input type="hidden" name="network" value="{{ network }}" />
+          <td class="mono-cell">
+            {{ tx["from"][:12] if tx["from"] else "Contract Creation" }}...
+          </td>
 
-  <button class="btn btn-warning">⭐ Add to Favourites</button>
-</form>
+          <td class="mono-cell">
+            {{ tx["to"][:12] if tx["to"] else "Contract Creation" }}...
+          </td>
+
+          <td>{{ tx["value"] }}</td>
+
+          <td>
+            {% if tx["status"] %}
+            <span class="status-success">Success</span>
+            {% else %}
+            <span class="status-failed">Failed</span>
+            {% endif %}
+          </td>
+
+          <td class="text-muted">{{ tx["time"] }}</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+
+  <p class="empty-state">No transactions available.</p>
+
+  {% endif %}
+</div>
 
 {% endblock %}

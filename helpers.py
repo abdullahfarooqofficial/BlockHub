@@ -156,13 +156,13 @@ def get_wallet_data(address, network):
                 value = 0
 
                 # Check token transfer events
-                for event in tx.get("log_events", []):
+                for event in tx.get("log_events") or []:
 
                     decoded = event.get("decoded")
 
                     if decoded:
 
-                        params = decoded.get("params", [])
+                        params = decoded.get("params") or []
 
                         for param in params:
 

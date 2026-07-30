@@ -1,55 +1,61 @@
 {% extends "layout.html" %} {% block title %}Transaction{% endblock %} {% block
 content %}
 
-<h2>Transaction Details</h2>
+<h2 class="mb-4">Transaction Details</h2>
 
-<hr />
+<div class="card p-4">
+  <div class="mb-3">
+    <div class="detail-label">Hash</div>
+    <div class="detail-value">{{ tx_data.hash }}</div>
+  </div>
 
-<table class="table table-bordered">
-  <tr>
-    <th>Hash</th>
-    <td>{{ tx_data.hash }}</td>
-  </tr>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="detail-label">Network</div>
+      <span class="chain-chip">{{ network }}</span>
+    </div>
 
-  <tr>
-    <th>Network</th>
-    <td>{{ network }}</td>
-  </tr>
+    <div class="col-md-6">
+      <div class="detail-label">Status</div>
+      {% if tx_data.status %}
+      <span class="status-success">Success</span>
+      {% else %}
+      <span class="status-failed">Failed</span>
+      {% endif %}
+    </div>
+  </div>
 
-  <tr>
-    <th>Status</th>
-    <td>{% if tx_data.status %} Success ✅ {% else %} Failed ❌ {% endif %}</td>
-  </tr>
+  <table class="table">
+    <tr>
+      <th>Block</th>
+      <td class="mono-cell">{{ tx_data.block }}</td>
+    </tr>
 
-  <tr>
-    <th>Block</th>
-    <td>{{ tx_data.block }}</td>
-  </tr>
+    <tr>
+      <th>From</th>
+      <td class="mono-cell">{{ tx_data.from }}</td>
+    </tr>
 
-  <tr>
-    <th>From</th>
-    <td>{{ tx_data.from }}</td>
-  </tr>
+    <tr>
+      <th>To</th>
+      <td class="mono-cell">{{ tx_data.to }}</td>
+    </tr>
 
-  <tr>
-    <th>To</th>
-    <td>{{ tx_data.to }}</td>
-  </tr>
+    <tr>
+      <th>Gas Used</th>
+      <td class="mono-cell">{{ tx_data.gas_used }}</td>
+    </tr>
 
-  <tr>
-    <th>Gas Used</th>
-    <td>{{ tx_data.gas_used }}</td>
-  </tr>
+    <tr>
+      <th>Gas Price</th>
+      <td class="mono-cell">{{ tx_data.gas_price }}</td>
+    </tr>
 
-  <tr>
-    <th>Gas Price</th>
-    <td>{{ tx_data.gas_price }}</td>
-  </tr>
-
-  <tr>
-    <th>Timestamp</th>
-    <td>{{ tx_data.time }}</td>
-  </tr>
-</table>
+    <tr>
+      <th>Timestamp</th>
+      <td class="text-muted">{{ tx_data.time }}</td>
+    </tr>
+  </table>
+</div>
 
 {% endblock %}
