@@ -125,6 +125,27 @@ main { flex: 1; }
   border-bottom: 1px solid var(--border);
   padding-top: 0.9rem;
   padding-bottom: 0.9rem;
+  box-shadow: 0 4px 20px rgba(34, 34, 59, 0.06);
+}
+/* Fix hamburger icon visibility across themes */
+.navbar-toggler {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+  background: var(--surface);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.navbar-toggler-icon {
+  background-image: none;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") no-repeat center / 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") no-repeat center / 100%;
+  background-color: var(--text);
 }
 
 .navbar-brand {
