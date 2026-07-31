@@ -1,8 +1,7 @@
 # BlockHub
-Your Hub for Blockchain Wallet Exploration.
+Explore blockchain wallets and transaction history across multiple networks.
 
 #### Video Demo:
-
 <YouTube link>
 
 #### Description
@@ -69,6 +68,24 @@ the ones I care about, tied to my own account, so I built that.
 - `requirements.txt` — the Python packages this needs.
 - `.env` (not pushed to GitHub) — holds `SECRET_KEY` and `COVALENT_API_KEY`.
 
+#### Database
+
+BlockHub uses a SQLite database (`blockhub.db`) with three tables, defined
+in `database/schema.sql`:
+
+- **users** — id, name, username, email, password_hash, created_at. Usernames
+  and emails are both marked `UNIQUE` so two accounts can't collide.
+- **search_history** — id, user_id, wallet_address, network, searched_at.
+  Each row is a logged wallet lookup, linked back to `users` through a
+  foreign key.
+- **favourites** — id, user_id, wallet_address, network, added_at. Same
+  shape as `search_history`, but only holds wallets the user chose to save.
+
+Keeping `search_history` and `favourites` as separate tables (instead of one
+table with a "favourited" flag) made it easy to query and cap each one
+independently, for example, only pulling the 5 most recent rows of each for
+the dashboard.
+
 #### How It Works
 
 When you search a wallet, `/wallet` first logs the search to
@@ -88,10 +105,44 @@ the code.
 
 #### Design Decisions
 
-I log the search before calling the API on purpose, not after. That way, even if the Covalent request fails or times out, the search still shows up in your history. It reflects what you actually looked up, not just what happened to load successfully.
+I log the search before calling the API on purpose, not after. That way even
+if the Covalent request fails or times out, the search still shows up in
+your history, it reflects what you actually looked up, not just what
+happened to load successfully.
 
-For the transaction detail page, I went back and forth on how to pass the data. I originally thought about storing the transaction list in the session so `/tx/<hash>` could look it up locally, but I ended up passing the transaction's fields through the URL as query parameters instead. It is simpler and doesn't depend on session state sticking around. The tradeoff is that the route currently trusts whatever is in the URL, so a future version could re-fetch the transaction directly from the Covalent API using the hash or return to the session-based approach.
+For the transaction detail page, I went back and forth on how to pass the
+data. I originally thought about stashing the transaction list in the
+session so `/tx/<hash>` could just look it up locally, but ended up passing
+the transaction's fields through the URL as query parameters instead, it's
+simpler and doesn't depend on session state sticking around.
 
+#### Challenges
+
+The Covalent API was the hardest part of this project. The free tier's rate
+limits kicked in more than I expected during testing, so I ended up adding
+verbose logging around every request just to see what was actually failing
+versus what was just getting throttled. I also underestimated how messy
+on-chain data can be, a "transaction" isn't always a simple value transfer,
+so figuring out how to detect and decode token transfer events (instead of
+just reading the top-level `value` field) took a fair bit of trial and error
+against real wallet addresses.
+
+Getting sessions, the database, and the API calls to all agree with each
+other was trickier than any one piece on its own. Deciding *when* to write
+to `search_history` relative to the API call, for example, only became a
+real question once I started testing with wallets that occasionally failed
+to load.
+
+#### Future Improvements
+
+- Re-fetch transaction details from Covalent using the hash instead of
+  trusting query parameters passed through the URL.
+- Add CSRF protection to the login, register, and favourites forms.
+- Add pagination to search history and favourites instead of hardcoding a
+  limit of 5.
+- Cache Covalent API responses briefly to cut down on redundant calls and
+  stay further under the rate limit.
+- Support more networks as Covalent adds them.
 
 #### Getting Started
 
