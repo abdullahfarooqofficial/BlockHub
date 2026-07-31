@@ -164,6 +164,9 @@ to load.
    flask run
    ```
 
+#### Conclusion
+Building BlockHub allowed me to combine concepts from across CS50, including Flask, SQL, authentication, sessions, API integration, and responsive web design. It also introduced me to the challenges of working with real-world blockchain data. The project represents the knowledge and skills I gained throughout CS50x and serves as a foundation for future blockchain-related applications.
+
 #### Acknowledgements
 
 Developed by Abdullah Farooq as the final project for CS50x. During development, I used AI tools to assist with debugging, refactoring, and improving documentation. The overall design, implementation, testing, and integration of the application are my own work.
