@@ -27,7 +27,7 @@ def get_wallet_data(address, network):
     """
 
     api_key = os.getenv("COVALENT_API_KEY")
-    print("API Key Loaded:", bool(api_key))
+    
 
     network_map = {
 
@@ -73,15 +73,7 @@ def get_wallet_data(address, network):
         headers=headers
     )
 
-    # print("Balance URL:", url)
-    # print("Balance Status:", response.status_code)
-    # print("Balance Response:", repr(response.text[:500]))
-    print("\n===== BALANCE DEBUG =====")
-    print("URL:", url)
-    print("STATUS:", response.status_code)
-    print("HEADERS:", response.headers)
-    print("BODY:", repr(response.text[:500]))
-    print("=========================\n")
+
 
     if response.status_code != 200:
         return {
@@ -93,7 +85,7 @@ def get_wallet_data(address, network):
         }
 
     data = response.json()
-    print(data)
+    
 
     balance = "0.00"
 
@@ -126,8 +118,7 @@ def get_wallet_data(address, network):
         headers=headers
     )
     
-    print("Transaction Status:", tx_response.status_code)
-    print("Transaction Response:", tx_response.text[:500])
+   
     
 
     if tx_response.status_code != 200:
@@ -199,57 +190,3 @@ def get_wallet_data(address, network):
 
     }
     
-# def get_transaction_data(tx_hash, network):
-
-#     api_key = os.getenv("COVALENT_API_KEY")
-
-#     network_map = {
-#         "ethereum": "eth-mainnet",
-#         "bsc": "bsc-mainnet",
-#         "polygon": "matic-mainnet"
-#     }
-
-#     chain = network_map.get(network)
-
-#     if not chain:
-#         return None
-
-#     url = f"https://api.covalenthq.com/v1/{chain}/transaction_v2/{tx_hash}/"
-
-#     headers = {
-#         "Authorization": f"Bearer {api_key}"
-#     }
-
-#     response = requests.get(url, headers=headers)
-
-#     #Sprint("Transaction Details Status:", response.status_code)
-#     print("URL:", url)
-#     print("Status:", response.status_code)
-#     print("Response:", response.text[:500])
-
-#     if response.status_code != 200:
-#         return None
-
-#     data = response.json()
-
-#     if not data.get("data"):
-#         return None
-
-#     items = data["data"].get("items", [])
-
-#     if not items:
-#         return None
-
-#     tx = items[0]
-
-#     return {
-#         "hash": tx.get("tx_hash"),
-#         "from": tx.get("from_address"),
-#         "to": tx.get("to_address"),
-#         "status": tx.get("successful"),
-#         "block": tx.get("block_height"),
-#         "time": tx.get("block_signed_at"),
-#         "gas_used": tx.get("gas_spent"),
-#         "gas_price": tx.get("gas_price"),
-#         "value": tx.get("value", 0)
-#     }
