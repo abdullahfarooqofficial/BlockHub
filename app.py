@@ -405,12 +405,6 @@ def transaction(tx_hash):
 #         network=network
 #     )
 
-# Test Route
-@app.route("/test")
-def test():
-    return "It works!"
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
