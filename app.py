@@ -13,7 +13,7 @@ COVALENT_API_KEY = os.getenv("COVALENT_API_KEY")
 app = Flask(__name__)
 
 # Secret key for sessions and flash messages
-app.secret_key = "blockhub_secret_key"
+app.secret_key = os.getenv("SECRET_KEY")
 
 # Session configuration
 app.config["SESSION_PERMANENT"] = False
