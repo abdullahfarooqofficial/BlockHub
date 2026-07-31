@@ -404,7 +404,10 @@ def transaction(tx_hash):
 #         tx_data=tx_data,
 #         network=network
 #     )
-
+# @app.route("/crash")
+# def crash():
+#     1 / 0
+#     return "This will never run"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
