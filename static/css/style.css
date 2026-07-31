@@ -343,6 +343,10 @@ h2 {
   font-size: 0.85rem;
   width: 160px;
 }
+/* Force bootstrap's text-muted to follow our theme (fixes dark mode contrast) */
+.text-muted {
+  color: var(--text-faint) !important;
+}
 
 /* mono cells for addresses / hashes */
 .mono-cell {
