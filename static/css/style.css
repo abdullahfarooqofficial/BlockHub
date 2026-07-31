@@ -1,7 +1,5 @@
-/* ============================================
-   BlockHub — Soft Lavender palette (Light)
-   22223B / 4A4E69 / 9A8C98 / C9ADA7 / F2E9E4
-   ============================================ */
+/* BlockHub — Soft Lavender palette (Light)
+   22223B / 4A4E69 / 9A8C98 / C9ADA7 / F2E9E4*/
 :root {
   --bg: #f2e9e4;
   --surface: #ffffff;
@@ -37,9 +35,7 @@ body {
 
 main { flex: 1; }
 
-/* ============================================
-   Navbar
-   ============================================ */
+/* Navbar*/
 .navbar {
   background: var(--surface) !important;
   border-bottom: 1px solid var(--border);
@@ -73,9 +69,7 @@ main { flex: 1; }
   background: var(--surface-2);
 }
 
-/* ============================================
-   Cards
-   ============================================ */
+/*Cards*/
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -98,9 +92,7 @@ h2 {
   color: var(--text);
 }
 
-/* ============================================
-   Forms
-   ============================================ */
+/* Forms */
 .form-control,
 .form-select {
   background: var(--bg);
@@ -125,9 +117,7 @@ h2 {
 
 .form-select { font-family: var(--font-ui); }
 
-/* ============================================
-   Buttons
-   ============================================ */
+/*Buttons */
 .btn-dark {
   background: var(--accent);
   border: none;
@@ -160,9 +150,7 @@ h2 {
   background: rgba(181, 89, 90, 0.06);
 }
 
-/* ============================================
-   Wallet rows
-   ============================================ */
+/* Wallet rows*/
 .wallet-row {
   background: var(--surface-2);
   border: 1px solid var(--border);
@@ -218,18 +206,14 @@ h2 {
   text-align: center;
 }
 
-/* ============================================
-   Alerts
-   ============================================ */
+/* Alerts*/
 .alert-info {
   background: var(--accent-soft);
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: var(--radius-sm);
 }
-/* ============================================
-   Tables
-   ============================================ */
+/* Tables*/
 .table {
   color: var(--text);
   border-color: var(--border);
@@ -307,9 +291,7 @@ h2 {
   color: var(--text);
   word-break: break-all;
 }
-/* ============================================
-   Footer
-   ============================================ */
+/* Footer*/
 footer {
   border-top: 1px solid var(--border) !important;
   color: var(--text-faint);
