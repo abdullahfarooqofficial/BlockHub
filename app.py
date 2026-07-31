@@ -403,6 +403,9 @@ def transaction(tx_hash):
 def test():
     return "It works!"
 
+@app.route("/crash-test")
+def crash_test():
+    return 1 / 0  # forces an error on purpose
 
 if __name__ == "__main__":
     app.run(debug=True)
