@@ -2,16 +2,16 @@
 block content %}
 
 <!-- Hero Section -->
-<section class="text-center py-5">
-  <h1 class="display-4 fw-bold mb-3">BlockHub</h1>
+<section class="py-5">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <h1 class="display-4 fw-bold mb-3">BlockHub</h1>
 
-  <p class="lead mb-4" style="color: var(--text-muted)">
-    Explore blockchain wallets and transaction history across multiple networks.
-  </p>
+      <p class="lead mb-4" style="color: var(--text-muted)">
+        Explore blockchain wallets and transaction history across multiple
+        networks.
+      </p>
 
-  <!-- Wallet Search -->
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
       <div class="card p-4">
         <form action="/wallet" method="GET">
           <div class="row g-3">
@@ -46,6 +46,197 @@ block content %}
           </div>
         </form>
       </div>
+    </div>
+
+    <div class="col-lg-6 d-none d-lg-block text-center">
+      <svg viewBox="0 0 420 360" width="100%" style="max-width: 420px">
+        <defs>
+          <linearGradient id="blockGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent-warm)" />
+            <stop offset="100%" stop-color="var(--accent)" />
+          </linearGradient>
+        </defs>
+
+        <!-- connecting lines -->
+        <line
+          x1="100"
+          y1="100"
+          x2="210"
+          y2="180"
+          stroke="var(--border)"
+          stroke-width="3"
+        />
+        <line
+          x1="320"
+          y1="90"
+          x2="210"
+          y2="180"
+          stroke="var(--border)"
+          stroke-width="3"
+        />
+        <line
+          x1="210"
+          y1="180"
+          x2="130"
+          y2="280"
+          stroke="var(--border)"
+          stroke-width="3"
+        />
+        <line
+          x1="210"
+          y1="180"
+          x2="300"
+          y2="270"
+          stroke="var(--border)"
+          stroke-width="3"
+        />
+
+        <!-- nodes (blocks) -->
+        <g>
+          <rect
+            x="65"
+            y="65"
+            width="70"
+            height="70"
+            rx="14"
+            fill="var(--surface)"
+            stroke="var(--border)"
+            stroke-width="2"
+          />
+          <rect
+            x="80"
+            y="80"
+            width="40"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+          <rect
+            x="80"
+            y="95"
+            width="28"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+        </g>
+
+        <g>
+          <rect
+            x="285"
+            y="55"
+            width="70"
+            height="70"
+            rx="14"
+            fill="var(--surface)"
+            stroke="var(--border)"
+            stroke-width="2"
+          />
+          <rect
+            x="300"
+            y="70"
+            width="40"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+          <rect
+            x="300"
+            y="85"
+            width="28"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+        </g>
+
+        <g>
+          <rect
+            x="175"
+            y="145"
+            width="80"
+            height="80"
+            rx="16"
+            fill="url(#blockGrad)"
+          />
+          <rect
+            x="192"
+            y="165"
+            width="46"
+            height="9"
+            rx="2"
+            fill="var(--surface)"
+            opacity="0.85"
+          />
+          <rect
+            x="192"
+            y="182"
+            width="32"
+            height="9"
+            rx="2"
+            fill="var(--surface)"
+            opacity="0.85"
+          />
+        </g>
+
+        <g>
+          <rect
+            x="95"
+            y="245"
+            width="70"
+            height="70"
+            rx="14"
+            fill="var(--surface)"
+            stroke="var(--border)"
+            stroke-width="2"
+          />
+          <rect
+            x="110"
+            y="260"
+            width="40"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+          <rect
+            x="110"
+            y="275"
+            width="28"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+        </g>
+
+        <g>
+          <rect
+            x="265"
+            y="235"
+            width="70"
+            height="70"
+            rx="14"
+            fill="var(--surface)"
+            stroke="var(--border)"
+            stroke-width="2"
+          />
+          <rect
+            x="280"
+            y="250"
+            width="40"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+          <rect
+            x="280"
+            y="265"
+            width="28"
+            height="8"
+            rx="2"
+            fill="var(--text-faint)"
+          />
+        </g>
+      </svg>
     </div>
   </div>
 </section>
