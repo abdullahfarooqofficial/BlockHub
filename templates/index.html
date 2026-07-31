@@ -4,7 +4,8 @@ block content %}
 <!-- Hero Section -->
 <section class="py-5">
   <div class="row align-items-center g-5">
-    <div class="col-lg-6">
+    <div class="col-lg-6 fade-in">
+      <p class="eyebrow mb-2">◆ Multi-Chain Wallet Explorer</p>
       <h1 class="display-4 fw-bold mb-3">BlockHub</h1>
 
       <p class="lead mb-4" style="color: var(--text-muted)">
@@ -245,9 +246,18 @@ block content %}
 <section class="py-5">
   <div class="row g-4">
     <div class="col-md-4">
-      <div class="card h-100 p-4 text-center">
-        <div class="chain-chip mx-auto mb-3" style="font-size: 0.75rem">
-          Explorer
+      <div class="card h-100 p-4 text-center feature-card">
+        <div class="stat-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="2" y="7" width="20" height="14" rx="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2H10a2 2 0 0 0-2 2v16" />
+          </svg>
         </div>
 
         <h4>Wallet Explorer</h4>
@@ -260,9 +270,18 @@ block content %}
     </div>
 
     <div class="col-md-4">
-      <div class="card h-100 p-4 text-center">
-        <div class="chain-chip mx-auto mb-3" style="font-size: 0.75rem">
-          Activity
+      <div class="card h-100 p-4 text-center feature-card">
+        <div class="stat-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 3v18h18" />
+            <path d="m19 9-5 5-4-4-3 3" />
+          </svg>
         </div>
 
         <h4>Transaction Explorer</h4>
@@ -274,9 +293,19 @@ block content %}
     </div>
 
     <div class="col-md-4">
-      <div class="card h-100 p-4 text-center">
-        <div class="chain-chip mx-auto mb-3" style="font-size: 0.75rem">
-          Saved
+      <div class="card h-100 p-4 text-center feature-card">
+        <div class="stat-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+            />
+          </svg>
         </div>
 
         <h4>Favourites</h4>
@@ -287,6 +316,28 @@ block content %}
         </p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Supported Networks -->
+<section class="py-4">
+  <p
+    class="text-center mb-4"
+    style="
+      color: var(--text-faint);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    "
+  >
+    Supported Networks
+  </p>
+
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+    <span class="network-pill">Ethereum</span>
+    <span class="network-pill">BNB Smart Chain</span>
+    <span class="network-pill">Polygon</span>
+    <span class="network-pill">Base</span>
   </div>
 </section>
 
