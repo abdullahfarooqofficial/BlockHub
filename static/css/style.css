@@ -291,6 +291,115 @@ h2 {
   color: var(--text);
   word-break: break-all;
 }
+/* Auth pages (login/register) */
+.auth-wrapper {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  display: flex;
+  overflow: hidden;
+  max-width: 780px;
+  width: 100%;
+  padding: 0 !important;
+}
+
+.auth-panel {
+  flex: 1;
+  background: linear-gradient(155deg, var(--accent) 0%, #22223b 100%);
+  color: #f2e9e4;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-panel .brand-mark { color: var(--accent-warm); }
+
+.auth-panel h3 {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.auth-panel p {
+  color: rgba(242, 233, 228, 0.75);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.auth-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+}
+
+.auth-panel ul li {
+  font-size: 0.85rem;
+  color: rgba(242, 233, 228, 0.85);
+  padding: 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.auth-form-side {
+  flex: 1.1;
+  padding: 2.5rem 2rem;
+}
+
+.input-icon-group { position: relative; }
+
+.input-icon-group .form-control { padding-left: 2.5rem; }
+
+.input-icon-group svg {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-faint);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .auth-card { flex-direction: column; }
+}
+
+/* Profile page */
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(155deg, var(--accent-warm), var(--accent));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.stat-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.75rem;
+}
+
+.stat-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--accent);
+}
 /* Footer*/
 footer {
   border-top: 1px solid var(--border) !important;
