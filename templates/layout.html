@@ -6,6 +6,16 @@
 
     <title>{% block title %}BlockHub{% endblock %}</title>
 
+    <!-- Set theme before paint to avoid flash -->
+    <script>
+      (function () {
+        var theme = localStorage.getItem("theme") || "light";
+        if (theme === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,7 +53,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
             {% if session.get("user_id") %}
 
             <li class="nav-item">
@@ -69,6 +79,41 @@
             </li>
 
             {% endif %}
+
+            <li class="nav-item ms-lg-2">
+              <button
+                class="theme-toggle"
+                id="themeToggle"
+                type="button"
+                aria-label="Toggle theme"
+              >
+                <svg
+                  class="icon-sun"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="4" />
+                  <path
+                    d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                  />
+                </svg>
+                <svg
+                  class="icon-moon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+            </li>
           </ul>
         </div>
       </div>

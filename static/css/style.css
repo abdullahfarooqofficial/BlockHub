@@ -19,6 +19,57 @@
   --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
 }
+/* BlockHub — Midnight Blues palette (Dark)
+   000000 / 0C1821 / 1B2A41 / 324A5F / CCC9DC */
+:root[data-theme="dark"] {
+  --bg: #0c1821;
+  --surface: #1b2a41;
+  --surface-2: #22334d;
+
+  --text: #ccc9dc;
+  --text-muted: #9ba1bb;
+  --text-faint: #647089;
+
+  --border: #324a5f;
+  --accent: #ccc9dc;
+  --accent-warm: #8fa6c9;
+  --accent-soft: rgba(204, 201, 220, 0.1);
+}
+
+:root[data-theme="dark"] .btn-dark {
+  color: #0c1821;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  transform: rotate(15deg);
+}
+
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.theme-toggle .icon-moon { display: none; }
+
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: inline-block; }
 
 * { box-sizing: border-box; }
 
