@@ -15,12 +15,17 @@ content %}
   </div>
 
   <div class="row">
-    <div class="col-md-6 mb-3 mb-md-0">
+    <div class="col-md-4 mb-3 mb-md-0">
+      <div class="detail-label">Name</div>
+      <div class="detail-value">{{ user.name }}</div>
+    </div>
+
+    <div class="col-md-4 mb-3 mb-md-0">
       <div class="detail-label">Email</div>
       <div class="detail-value">{{ user.email }}</div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="detail-label">Joined</div>
       <div class="detail-value">{{ user.created_at }}</div>
     </div>

@@ -43,6 +43,11 @@ def dashboard():
 
     conn = get_db_connection()
 
+    user = conn.execute(
+        "SELECT * FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+    
     favourites = conn.execute(
         """
         SELECT *
@@ -69,6 +74,7 @@ def dashboard():
 
     return render_template(
         "dashboard.html",
+        user=user,
         favourites=favourites,
         history=history
     )
@@ -115,18 +121,18 @@ def login():
 
 
 # Register
+# Register
 @app.route("/register", methods=["GET", "POST"])
 def register():
-
     if request.method == "POST":
-
+        name = request.form.get("name")
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
 
         # Validate input
-        if not username or not email or not password or not confirmation:
+        if not name or not username or not email or not password or not confirmation:
             flash("Please fill in all fields.")
             return redirect("/register")
 
@@ -162,16 +168,16 @@ def register():
         # Insert new user
         conn.execute(
             """
-            INSERT INTO users (username, email, password_hash)
-            VALUES (?, ?, ?)
+            INSERT INTO users (name, username, email, password_hash)
+            VALUES (?, ?, ?, ?)
             """,
             (
+                name,
                 username,
                 email,
                 generate_password_hash(password)
             )
         )
-
         conn.commit()
         conn.close()
 
