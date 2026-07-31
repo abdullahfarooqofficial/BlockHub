@@ -88,19 +88,10 @@ the code.
 
 #### Design Decisions
 
-I log the search before calling the API on purpose, not after. That way even
-if the Covalent request fails or times out, the search still shows up in
-your history, it reflects what you actually looked up, not just what
-happened to load successfully.
+I log the search before calling the API on purpose, not after. That way, even if the Covalent request fails or times out, the search still shows up in your history. It reflects what you actually looked up, not just what happened to load successfully.
 
-For the transaction detail page, I went back and forth on how to pass the
-data. I originally thought about stashing the transaction list in the
-session so `/tx/<hash>` could just look it up locally, but ended up passing
-the transaction's fields through the URL as query parameters instead, it's
-simpler and doesn't depend on session state sticking around. The tradeoff is
-that route currently trusts whatever's in the URL, so a cleaner version down
-the line would probably re-fetch the transaction from Covalent directly
-using the hash, or bring back the session-based approach.
+For the transaction detail page, I went back and forth on how to pass the data. I originally thought about storing the transaction list in the session so `/tx/<hash>` could look it up locally, but I ended up passing the transaction's fields through the URL as query parameters instead. It is simpler and doesn't depend on session state sticking around. The tradeoff is that the route currently trusts whatever is in the URL, so a future version could re-fetch the transaction directly from the Covalent API using the hash or return to the session-based approach.
+
 
 #### Getting Started
 
@@ -124,7 +115,6 @@ using the hash, or bring back the session-based approach.
 
 #### Acknowledgements
 
-This is my final project for CS50x. I used AI tools along the way to help
-debug and clean up code, but the app itself
+Developed by Abdullah Farooq as the final project for CS50x. During development, I used AI tools to assist with debugging, refactoring, and improving documentation. The overall design, implementation, testing, and integration of the application are my own work.
 
-- the ideas, the logic, the actual building of it - is mine.
+CS50x Final Project – 2026
