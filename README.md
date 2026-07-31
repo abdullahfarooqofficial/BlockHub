@@ -90,13 +90,13 @@ the code.
 
 I log the search before calling the API on purpose, not after. That way even
 if the Covalent request fails or times out, the search still shows up in
-your history — it reflects what you actually looked up, not just what
+your history, it reflects what you actually looked up, not just what
 happened to load successfully.
 
 For the transaction detail page, I went back and forth on how to pass the
 data. I originally thought about stashing the transaction list in the
 session so `/tx/<hash>` could just look it up locally, but ended up passing
-the transaction's fields through the URL as query parameters instead — it's
+the transaction's fields through the URL as query parameters instead, it's
 simpler and doesn't depend on session state sticking around. The tradeoff is
 that route currently trusts whatever's in the URL, so a cleaner version down
 the line would probably re-fetch the transaction from Covalent directly
