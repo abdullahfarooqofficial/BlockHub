@@ -1,8 +1,10 @@
 # BlockHub
+
 Explore blockchain wallets and transaction history across multiple networks.
 
 #### Video Demo:
-<YouTube link>
+
+https://youtu.be/zLyvi-jOO3Q
 
 #### Description
 
@@ -128,7 +130,7 @@ just reading the top-level `value` field) took a fair bit of trial and error
 against real wallet addresses.
 
 Getting sessions, the database, and the API calls to all agree with each
-other was trickier than any one piece on its own. Deciding *when* to write
+other was trickier than any one piece on its own. Deciding _when_ to write
 to `search_history` relative to the API call, for example, only became a
 real question once I started testing with wallets that occasionally failed
 to load.
@@ -165,6 +167,7 @@ to load.
    ```
 
 #### Conclusion
+
 Building BlockHub allowed me to combine concepts from across CS50, including Flask, SQL, authentication, sessions, API integration, and responsive web design. It also introduced me to the challenges of working with real-world blockchain data. The project represents the knowledge and skills I gained throughout CS50x and serves as a foundation for future blockchain-related applications.
 
 #### Acknowledgements
