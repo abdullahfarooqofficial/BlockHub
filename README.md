@@ -6,7 +6,7 @@ Explore blockchain wallets and transaction history across multiple networks.
 
 https://youtu.be/zLyvi-jOO3Q
 
-#### Description
+## Description
 
 BlockHub is a web app that lets you check any crypto wallet's balance and
 recent activity without needing to know how to use a real block explorer.
@@ -21,7 +21,7 @@ come back to it later unless you bookmark a bunch of separate URLs. I wanted
 one place where I could search a wallet on any of the major chains and save
 the ones I care about, tied to my own account, so I built that.
 
-#### Features
+## Features
 
 - **Accounts** — you sign up with your name, a username, an email, and a
   password. Passwords are hashed before they touch the database, they're
@@ -43,7 +43,7 @@ the ones I care about, tied to my own account, so I built that.
   dark themes, and your choice is saved in `localStorage` so it sticks the
   next time you open the site.
 
-#### Technologies Used
+## Technologies Used
 
 - Python / Flask for the backend and routing
 - Flask-Session for handling sessions
@@ -55,7 +55,7 @@ the ones I care about, tied to my own account, so I built that.
 - python-dotenv, to keep the secret key and API key out of the code
 - Covalent API, as the actual source of wallet/transaction data
 
-#### Project Structure
+## Project Structure
 
 - `app.py` — every route: home, register, login, logout, dashboard,
   profile, wallet search, adding/removing favourites, transaction detail.
@@ -70,7 +70,7 @@ the ones I care about, tied to my own account, so I built that.
 - `requirements.txt` — the Python packages this needs.
 - `.env` (not pushed to GitHub) — holds `SECRET_KEY` and `COVALENT_API_KEY`.
 
-#### Database
+## Database
 
 BlockHub uses a SQLite database (`blockhub.db`) with three tables, defined
 in `database/schema.sql`:
@@ -88,7 +88,7 @@ table with a "favourited" flag) made it easy to query and cap each one
 independently, for example, only pulling the 5 most recent rows of each for
 the dashboard.
 
-#### How It Works
+## How It Works
 
 When you search a wallet, `/wallet` first logs the search to
 `search_history`, then calls `get_wallet_data()` in `helpers.py`. That
@@ -105,7 +105,7 @@ Flask-Session), and the key used to sign them comes from an environment
 variable instead of being hardcoded, so it can be changed without touching
 the code.
 
-#### Design Decisions
+## Design Decisions
 
 I log the search before calling the API on purpose, not after. That way even
 if the Covalent request fails or times out, the search still shows up in
@@ -118,7 +118,7 @@ session so `/tx/<hash>` could just look it up locally, but ended up passing
 the transaction's fields through the URL as query parameters instead, it's
 simpler and doesn't depend on session state sticking around.
 
-#### Challenges
+## Challenges
 
 The Covalent API was the hardest part of this project. The free tier's rate
 limits kicked in more than I expected during testing, so I ended up adding
@@ -135,7 +135,7 @@ to `search_history` relative to the API call, for example, only became a
 real question once I started testing with wallets that occasionally failed
 to load.
 
-#### Future Improvements
+## Future Improvements
 
 - Re-fetch transaction details from Covalent using the hash instead of
   trusting query parameters passed through the URL.
@@ -146,7 +146,7 @@ to load.
   stay further under the rate limit.
 - Support more networks as Covalent adds them.
 
-#### Getting Started
+## Getting Started
 
 1. Install the dependencies:
    ```
@@ -166,11 +166,11 @@ to load.
    flask run
    ```
 
-#### Conclusion
+## Conclusion
 
 Building BlockHub allowed me to combine concepts from across CS50, including Flask, SQL, authentication, sessions, API integration, and responsive web design. It also introduced me to the challenges of working with real-world blockchain data. The project represents the knowledge and skills I gained throughout CS50x and serves as a foundation for future blockchain-related applications.
 
-#### Acknowledgements
+## Acknowledgements
 
 Developed by Abdullah Farooq as the final project for CS50x. During development, I used AI tools to assist with debugging, refactoring, and improving documentation. The overall design, implementation, testing, and integration of the application are my own work.
 
